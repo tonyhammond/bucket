@@ -1,0 +1,8 @@
+[package]
+name = "bucket"
+version = "0.1.0"
+authors = ["Tony Hammond <tony@tonyhammond.org>"]
+edition = "2018"
+
+[dependencies]
+csv = "1"

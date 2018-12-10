@@ -3,7 +3,7 @@ use csv::Reader;
 use std::error::Error;
 use std::process;
 
-fn example() -> Result<(), Box<Error>> {
+fn read_csv() -> Result<(), Box<Error>> {
     let mut c = Config::new();
 
     c.merge(File::new("Settings", FileFormat::Toml).required(false))
@@ -22,7 +22,7 @@ fn example() -> Result<(), Box<Error>> {
 }
 
 fn main() {
-    if let Err(err) = example() {
+    if let Err(err) = read_csv() {
         println!("error running example: {}", err);
         process::exit(1);
     }

@@ -5,4 +5,5 @@ authors = ["Tony Hammond <tony@tonyhammond.org>"]
 edition = "2018"
 
 [dependencies]
+config = "0.9"
 csv = "1"

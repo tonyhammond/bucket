@@ -24,3 +24,5 @@ City { name: "San Diego ", population: Some(1321016), latitude: Some(32.717422),
 City { name: "Dallas ", population: Some(1219399), latitude: Some(32.776196), longitude: Some(-96.7969) }
 City { name: "San Jose ", population: Some(971495), latitude: Some(37.34385), longitude: Some(-121.88313) }
 ```
+
+Something else to look at is the [sophia](https://docs.rs/sophia/0.1.0/sophia/) crate for RDF processing. (Source code in the [sophia_rs](https://github.com/pchampin/sophia_rs) project.)

@@ -1,3 +1,19 @@
+/*!
+The `bucket` crate is just a playground for Rust experiments.
+
+Initially we're going to use the `csv` crate to read from a `.csv` file. We'll use
+[csv/test.csv](../../../csv/test.csv) for now.
+
+
+```
+name,population,latitude,longitude
+New York ,8287238,40.7305991,-73.9865812
+Los Angeles ,3826423,34.053717,-118.2427266
+...
+```
+
+*/
+
 #[macro_use]
 extern crate serde_derive;
 use config::{Config, File, FileFormat};

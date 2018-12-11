@@ -36,9 +36,28 @@ extern crate serde_derive;
 
 pub mod datasets;
 pub mod import;
+use config::{Config, File, FileFormat};
+
+/// Get a param's value from the [Settings.toml](../../../Settings.toml) config file.
+pub fn get_config(param: &str) -> String {
+    println!("param = {:?}", param);
+    let mut c = Config::new();
+
+    c.merge(File::new("Settings", FileFormat::Toml).required(false))
+        .unwrap();
+    let value = c.get_str(param).unwrap();
+    println!("value = {:?}", value);
+    value
+}
 
 fn main() {
-    if let Err(err) = import::reader::read_csv() {
+    let csv_path1 = get_config("csv_path1");
+    if let Err(err) = import::reader::read_csv(&csv_path1) {
+        println!("error running example: {}", err);
+        std::process::exit(1);
+    }
+    let csv_path2 = get_config("csv_path2");
+    if let Err(err) = import::reader::read_csv(&csv_path2) {
         println!("error running example: {}", err);
         std::process::exit(1);
     }

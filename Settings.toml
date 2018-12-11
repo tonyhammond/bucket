@@ -1,2 +1,3 @@
 debug = false
-csv_path = "csv/test.csv"
+csv_path1 = "csv/test1.csv"
+csv_path2 = "csv/test2.csv"

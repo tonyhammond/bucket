@@ -15,6 +15,22 @@ Also to get some feel for reading from a database we're using the
 
 Again using the config file `Settings.toml` to read the `dsn` connection string.
 
+## Structs
+
+Here's the simple `City` struct we're using.
+
+```
+/// A `City` struct for a CSV record.
+#[derive(Debug, Deserialize)]
+pub struct City {
+    // pub id: i32,
+    pub name: String,
+    pub population: Option<i32>,
+    pub latitude: Option<f64>,
+    pub longitude: Option<f64>,
+}
+```
+
 ## Examples
 
 Example of running this:

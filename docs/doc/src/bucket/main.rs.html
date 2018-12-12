@@ -100,6 +100,8 @@
 <span id="100">100</span>
 <span id="101">101</span>
 <span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
 </pre><pre class="rust ">
 <span class="doccomment">/*!
 The `bucket` crate is just a playground for Rust experiments.
@@ -157,6 +159,7 @@ src/
     <span class="ident">value</span>
 }
 
+<span class="doccomment">/// Read data from the CSV files.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_csv</span>() {
     <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;\n** read_csv()\n&quot;</span>);
     <span class="kw">let</span> <span class="ident">csv_path</span> <span class="op">=</span> <span class="ident">get_config</span>(<span class="string">&quot;csv_path_cities&quot;</span>);
@@ -173,6 +176,7 @@ src/
     }
 }
 
+<span class="doccomment">/// Read data from the Postgres database.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_database</span>() {
     <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;\n** read_database()\n&quot;</span>);
     <span class="kw">let</span> <span class="ident">dsn</span> <span class="op">=</span> <span class="ident">get_config</span>(<span class="string">&quot;dsn&quot;</span>);
@@ -187,7 +191,7 @@ src/
     <span class="kw">let</span> <span class="ident">query</span> <span class="op">=</span> <span class="string">&quot;SELECT name, population, latitude, longitude FROM cities LIMIT 5&quot;</span>;
     <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;db rows = &quot;</span>);
     <span class="kw">for</span> <span class="ident">row</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">conn</span>.<span class="ident">query</span>(<span class="ident">query</span>, <span class="kw-2">&amp;</span>[]).<span class="ident">unwrap</span>() {
-        <span class="kw">let</span> <span class="ident">city</span> <span class="op">=</span> <span class="ident">City</span> {
+      <span class="kw">let</span> <span class="ident">city</span> <span class="op">=</span> <span class="ident">City</span> {
             <span class="ident">name</span>: <span class="ident">row</span>.<span class="ident">get</span>(<span class="number">0</span>),
             <span class="ident">population</span>: <span class="ident">row</span>.<span class="ident">get</span>(<span class="number">1</span>),
             <span class="comment">// latitude: Some(0.0),</span>

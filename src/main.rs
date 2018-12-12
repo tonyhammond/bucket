@@ -54,6 +54,7 @@ pub fn get_config(param: &str) -> String {
     value
 }
 
+/// Read data from the CSV files.
 pub fn read_csv() {
     println!("\n** read_csv()\n");
     let csv_path = get_config("csv_path_cities");
@@ -70,6 +71,7 @@ pub fn read_csv() {
     }
 }
 
+/// Read data from the Postgres database.
 pub fn read_database() {
     println!("\n** read_database()\n");
     let dsn = get_config("dsn");
@@ -84,7 +86,7 @@ pub fn read_database() {
     let query = "SELECT name, population, latitude, longitude FROM cities LIMIT 5";
     println!("db rows = ");
     for row in &conn.query(query, &[]).unwrap() {
-        let city = City {
+      let city = City {
             name: row.get(0),
             population: row.get(1),
             // latitude: Some(0.0),

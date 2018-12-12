@@ -5,13 +5,15 @@ The `bucket` crate is just a playground for Rust experiments. See
 
 First off, some simple code for reading a CSV file just to have something to
 play with. We're parsing this with the
-[csv](https://docs.rs/csv/1.0.2/csv/) crate.
+[csv](https://docs.rs/csv/1.0.2/csv/) crate. (Source code in the
+  [rust-csv](https://github.com/BurntSushi/rust-csv) project.)
 
 We've also added the CSV file paths in `csv_path*` properties in the config
 file `Settings.toml`.
 
 Also to get some feel for reading from a database we're using the
-[postgres](https://docs.rs/postgres/0.15.2/postgres/) crate.
+[postgres](https://docs.rs/postgres/0.15.2/postgres/) crate. (Source code in the
+  [rust-postgres](https://github.com/sfackler/rust-postgres) project.)
 
 Again using the config file `Settings.toml` to read the `dsn` connection string.
 

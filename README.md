@@ -1,5 +1,8 @@
 # bucket – Playground for Rust experiments
 
+The `bucket` crate is just a playground for Rust experiments. See
+[doc](https://tonyhammond.github.io/bucket/doc/bucket/) for the crate docs.
+
 First off, some simple code for reading a CSV file just to have something to
 play with. We're parsing this with the
 [csv](https://docs.rs/csv/1.0.2/csv/) crate.

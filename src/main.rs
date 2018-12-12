@@ -1,6 +1,5 @@
 /*!
-The `bucket` crate is just a playground for Rust experiments. See
-[doc](https://tonyhammond.github.io/bucket/doc/bucket/) for the crate docs.
+The `bucket` crate is just a playground for Rust experiments.
 
 Initially we're going to use the `csv` crate to read from a `.csv` file. We'll use
 [csv/test.csv](../../../csv/test.csv) for now.

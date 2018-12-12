@@ -54,7 +54,7 @@ pub fn get_config(param: &str) -> String {
     value
 }
 
-fn read_csv() {
+pub fn read_csv() {
     println!("\n** read_csv()\n");
     let csv_path = get_config("csv_path_cities");
     if let Err(err) = import::reader::read_csv_cities(&csv_path) {
@@ -70,7 +70,7 @@ fn read_csv() {
     }
 }
 
-fn read_database() {
+pub fn read_database() {
     println!("\n** read_database()\n");
     let dsn = get_config("dsn");
     let conn = match Connection::connect(dsn, TlsMode::None) {

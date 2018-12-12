@@ -36,29 +36,65 @@ extern crate serde_derive;
 
 pub mod datasets;
 pub mod import;
+
+use crate::datasets::*;
 use config::{Config, File, FileFormat};
+use postgres::{Connection, TlsMode};
 
 /// Get a param's value from the [Settings.toml](../../../Settings.toml) config file.
 pub fn get_config(param: &str) -> String {
-    println!("param = {:?}", param);
+    // println!("param = {:?}", param);
     let mut c = Config::new();
 
     c.merge(File::new("Settings", FileFormat::Toml).required(false))
         .unwrap();
     let value = c.get_str(param).unwrap();
-    println!("value = {:?}", value);
+    // println!("value = {:?}", value);
+    println!("{:?} = {:?}", param, value);
     value
 }
 
+fn read_csv() {
+    println!("\n** read_csv()\n");
+    let csv_path = get_config("csv_path_cities");
+    if let Err(err) = import::reader::read_csv_cities(&csv_path) {
+        println!("error running example: {}", err);
+        std::process::exit(1);
+    }
+    if get_config("debug") == "true" {
+        let csv_path = get_config("csv_path_properties");
+        if let Err(err) = import::reader::read_csv_properties(&csv_path) {
+            println!("error running example: {}", err);
+            std::process::exit(1);
+        }
+    }
+}
+
+fn read_database() {
+    println!("\n** read_database()\n");
+    let dsn = get_config("dsn");
+    let conn = match Connection::connect(dsn, TlsMode::None) {
+        Ok(conn) => conn,
+        Err(e) => {
+            println!("! {:?}", e);
+            return;
+        }
+    };
+
+    let query = "SELECT name, population, latitude, longitude FROM cities LIMIT 5";
+    println!("db rows = ");
+    for row in &conn.query(query, &[]).unwrap() {
+      let city = City {
+            name: row.get(0),
+            population: row.get(1),
+            latitude: Some(0.0),
+            longitude: Some(0.0),
+        };
+        println!("{:?}", city);
+    }
+}
+
 fn main() {
-    let csv_path1 = get_config("csv_path1");
-    if let Err(err) = import::reader::read_csv(&csv_path1) {
-        println!("error running example: {}", err);
-        std::process::exit(1);
-    }
-    let csv_path2 = get_config("csv_path2");
-    if let Err(err) = import::reader::read_csv(&csv_path2) {
-        println!("error running example: {}", err);
-        std::process::exit(1);
-    }
+    read_csv();
+    read_database();
 }

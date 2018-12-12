@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["read_csv_cities","Read a CSV file for cities using the `csv_path` param."],["read_csv_properties","Read a CSV file for properties using the `csv_path` param."]]});

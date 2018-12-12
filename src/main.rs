@@ -84,7 +84,7 @@ pub fn read_database() {
     let query = "SELECT name, population, latitude, longitude FROM cities LIMIT 5";
     println!("db rows = ");
     for row in &conn.query(query, &[]).unwrap() {
-      let city = City {
+        let city = City {
             name: row.get(0),
             population: row.get(1),
             // latitude: Some(0.0),

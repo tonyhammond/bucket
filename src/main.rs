@@ -87,8 +87,10 @@ fn read_database() {
       let city = City {
             name: row.get(0),
             population: row.get(1),
-            latitude: Some(0.0),
-            longitude: Some(0.0),
+            // latitude: Some(0.0),
+            // longitude: Some(0.0),
+            latitude: None,
+            longitude: None,
         };
         println!("{:?}", city);
     }

@@ -16,7 +16,7 @@ Example of running this:
 ```
 % cargo run
    Compiling bucket v0.1.0 (/Users/tony/Projects/github/tonyhammond/bucket)                                                              
-    Finished dev [unoptimized + debuginfo] target(s) in 2.42s                                                                            
+    Finished dev [unoptimized + debuginfo] target(s) in 2.50s                                                                            
      Running `target/debug/bucket`
 
 ** read_csv()
@@ -34,11 +34,13 @@ City { name: "Philadelphia ", population: Some(1539313), latitude: Some(39.95233
 
 "dsn" = "postgresql://postgres@localhost:5432/cosmo_dev"
 db rows =
-City { name: "New York", population: Some(8287238), latitude: Some(0.0), longitude: Some(0.0) }
-City { name: "Los Angeles", population: Some(3826423), latitude: Some(0.0), longitude: Some(0.0) }
-City { name: "Chicago", population: Some(2705627), latitude: Some(0.0), longitude: Some(0.0) }
-City { name: "Houston", population: Some(2129784), latitude: Some(0.0), longitude: Some(0.0) }
-City { name: "Philadelphia", population: Some(1539313), latitude: Some(0.0), longitude: Some(0.0) }
+City { name: "New York", population: Some(8287238), latitude: None, longitude: None }
+City { name: "Los Angeles", population: Some(3826423), latitude: None, longitude: None }
+City { name: "Chicago", population: Some(2705627), latitude: None, longitude: None }
+City { name: "Houston", population: Some(2129784), latitude: None, longitude: None }
+City { name: "Philadelphia", population: Some(1539313), latitude: None, longitude: None }
 ```
+
+Note that having some difficulty reading the lat/long floats as different sizes in the database from those declared in the  `City` struct, hence these are being set to `None` for now.
 
 Something else to look at is the [sophia](https://docs.rs/sophia/0.1.0/sophia/) crate for RDF processing. (Source code in the [sophia_rs](https://github.com/pchampin/sophia_rs) project.)

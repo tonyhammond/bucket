@@ -8,8 +8,8 @@ pub struct City {
     // pub id: i32,
     pub name: String,
     pub population: Option<i32>,
-    pub latitude: Option<f32>,
-    pub longitude: Option<f32>,
+    pub latitude: Option<f64>,
+    pub longitude: Option<f64>,
 }
 
 // MANHATTAN CONDOMINIUM PROPERTY Boro-Block-Lot

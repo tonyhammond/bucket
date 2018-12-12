@@ -43,13 +43,11 @@ use postgres::{Connection, TlsMode};
 
 /// Get a param's value from the [Settings.toml](../../../Settings.toml) config file.
 pub fn get_config(param: &str) -> String {
-    // println!("param = {:?}", param);
     let mut c = Config::new();
 
     c.merge(File::new("Settings", FileFormat::Toml).required(false))
         .unwrap();
     let value = c.get_str(param).unwrap();
-    // println!("value = {:?}", value);
     println!("{:?} = {:?}", param, value);
     value
 }
@@ -86,13 +84,11 @@ pub fn read_database() {
     let query = "SELECT name, population, latitude, longitude FROM cities LIMIT 5";
     println!("db rows = ");
     for row in &conn.query(query, &[]).unwrap() {
-      let city = City {
+        let city = City {
             name: row.get(0),
             population: row.get(1),
-            // latitude: Some(0.0),
-            // longitude: Some(0.0),
-            latitude: None,
-            longitude: None,
+            latitude: row.get(2),
+            longitude: row.get(3),
         };
         println!("{:?}", city);
     }

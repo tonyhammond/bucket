@@ -13,7 +13,7 @@ file `Settings.toml`.
 
 Also to get some feel for reading from a database we're using the
 [postgres](https://docs.rs/postgres/0.15.2/postgres/) crate. (Source code in the
-  [rust-postgres](https://github.com/sfackler/rust-postgres) project.)
+  [postgres](https://docs.rs/crate/postgres/0.15.2/source/src) project.)
 
 Again using the config file `Settings.toml` to read the `dsn` connection string.
 

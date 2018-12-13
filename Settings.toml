@@ -1,4 +1,25 @@
+# debug variables
+config = true
 debug = false
-dsn = "postgresql://postgres@localhost:5432/cosmo_dev"
+
+# csv variables
 csv_path_cities = "csv/test_cities.csv"
 csv_path_properties = "csv/test_properties.csv"
+
+# database variables
+dsn = "postgresql://postgres@localhost:5432/cosmo_dev"
+query_cities = """
+SELECT \
+name, \
+population, \
+latitude, \
+longitude \
+FROM cities LIMIT 5 \
+"""
+query_properties = """
+SELECT \
+manhattan_condominium_property_neighborhood, \
+latitude, \
+longitude \
+FROM properties LIMIT 5 \
+"""

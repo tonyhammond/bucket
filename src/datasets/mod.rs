@@ -12,6 +12,28 @@ pub struct City {
     pub longitude: Option<f64>,
 }
 
+impl City {
+    /// Demo method `lat_long()` defined on `City` to return a lat/long tuple.
+    pub fn lat_long(&self) -> (f64, f64) {
+        (self.latitude.unwrap(), self.longitude.unwrap())
+    }
+
+    // Constructor as associated function.
+    pub fn new(
+        name: String,
+        population: Option<i32>,
+        latitude: Option<f64>,
+        longitude: Option<f64>,
+    ) -> City {
+        City {
+            name,
+            population,
+            latitude,
+            longitude,
+        }
+    }
+}
+
 // MANHATTAN CONDOMINIUM PROPERTY Boro-Block-Lot
 // MANHATTAN CONDOMINIUM PROPERTY Condo Section
 // MANHATTAN CONDOMINIUM PROPERTY Address
@@ -164,39 +186,39 @@ pub struct Property {
     pub comparable_rental_1_address: String,
     pub comparable_rental_1_boro_block_lot: String,
     pub comparable_rental_1_building_classification: String,
-    pub comparable_rental_1_dist_from_coop_in_miles: Option<f32>,
+    pub comparable_rental_1_dist_from_coop_in_miles: Option<f64>,
     pub comparable_rental_1_est_gross_income: Option<i32>,
     pub comparable_rental_1_full_market_value: Option<i32>,
-    pub comparable_rental_1_gross_income_per_sqft: Option<f32>,
+    pub comparable_rental_1_gross_income_per_sqft: Option<f64>,
     pub comparable_rental_1_gross_sqft: Option<i32>,
-    pub comparable_rental_1_market_value_per_sqft: Option<f32>,
+    pub comparable_rental_1_market_value_per_sqft: Option<f64>,
     pub comparable_rental_1_neighborhood: String,
     pub comparable_rental_1_total_units: Option<i32>,
     pub comparable_rental_1_year_built: Option<i32>,
     pub comparable_rental_2_address: String,
     pub comparable_rental_2_boro_block_lot: String,
     pub comparable_rental_2_building_classification: String,
-    pub comparable_rental_2_dist_from_coop_in_miles: Option<f32>,
+    pub comparable_rental_2_dist_from_coop_in_miles: Option<f64>,
     pub comparable_rental_2_est_gross_income: Option<i32>,
     pub comparable_rental_2_full_market_value: Option<i32>,
-    pub comparable_rental_2_gross_income_per_sqft: Option<f32>,
+    pub comparable_rental_2_gross_income_per_sqft: Option<f64>,
     pub comparable_rental_2_gross_sqft: Option<i32>,
-    pub comparable_rental_2_market_value_per_sqft: Option<f32>,
+    pub comparable_rental_2_market_value_per_sqft: Option<f64>,
     pub comparable_rental_2_neighborhood: String,
     pub comparable_rental_2_total_units: Option<i32>,
     pub comparable_rental_2_year_built: Option<i32>,
     pub council_district: Option<i32>,
-    pub latitude: Option<f32>,
-    pub longitude: Option<f32>,
+    pub latitude: Option<f64>,
+    pub longitude: Option<f64>,
     pub manhattan_condominium_property_address: String,
     pub manhattan_condominium_property_boro_block_lot: String,
     pub manhattan_condominium_property_building_classification: String,
     pub manhattan_condominium_property_condo_section: String,
     pub manhattan_condominium_property_est_gross_income: Option<i32>,
     pub manhattan_condominium_property_full_market_value: Option<i32>,
-    pub manhattan_condominium_property_gross_income_per_sqft: Option<f32>,
+    pub manhattan_condominium_property_gross_income_per_sqft: Option<f64>,
     pub manhattan_condominium_property_gross_sqft: Option<i32>,
-    pub manhattan_condominium_property_market_value_per_sqft: Option<f32>,
+    pub manhattan_condominium_property_market_value_per_sqft: Option<f64>,
     pub manhattan_condominium_property_neighborhood: String,
     pub manhattan_condominium_property_total_units: Option<i32>,
     pub manhattan_condominium_property_year_built: Option<i32>,

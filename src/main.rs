@@ -1,8 +1,8 @@
 /*!
 The `bucket` crate is just a playground for Rust experiments.
 
-Initially we're going to use the `csv` crate to read from a `.csv` file. We'll use
-[csv/test.csv](../../../csv/test.csv) for now.
+Initially we're going to use the [csv](https://docs.rs/csv/1.0.2/csv/) crate to read from a `.csv` file and the [postgres](https://docs.rs/postgres/0.15.2/postgres/)
+crate to read from a Postgres database.
 
 We're also going to experiment with file organization and module structure,
 and with documenting the code.
@@ -21,58 +21,107 @@ For now have broken out the following structure:
 
 
 ```text
-src/
+src
+├── config.rs
 ├── datasets
 │   └── mod.rs
 ├── import
 │   ├── mod.rs
 │   └── reader.rs
-└── main.rs
+├── main.rs
+└── utils.rs
+```
+
+# Examples
+
+## Reading CSV files
+```
+println!("\n** read_csv()\n");
+let csv_path = get_config("csv_path_cities");
+if let Err(err) = read_csv_cities(&csv_path) {
+    println!("error running example: {}", err);
+    exit(1);
+}
+if get_config("debug") == "true" {
+    let csv_path = get_config("csv_path_properties");
+    if let Err(err) = read_csv_properties(&csv_path) {
+        println!("error running example: {}", err);
+        exit(1);
+    }
+}
+```
+
+## Reading the database
+```
+println!("\n** init_database()\n");
+let dsn = get_config("dsn");
+// let conn = init_database();
+let conn = match Connection::connect(dsn, TlsMode::None) {
+    Ok(conn) => conn,
+    Err(e) => {
+        println!("! {:?}", e);
+        return;
+    }
+};
+let query = get_config("query_cities");
+read_database_cities(&conn, &query);
 ```
 */
 
 #[macro_use]
 extern crate serde_derive;
 
+pub mod config;
 pub mod datasets;
 pub mod import;
+pub mod utils;
 
-use crate::datasets::*;
-use config::{Config, File, FileFormat};
+use self::config::*;
+use self::datasets::*;
+use self::import::reader::*;
+use self::utils::*;
+
 use postgres::{Connection, TlsMode};
+use std::process::exit;
 
-/// Get a param's value from the [Settings.toml](../../../Settings.toml) config file.
-pub fn get_config(param: &str) -> String {
-    let mut c = Config::new();
+// /// Open connection to the Postgres database.
+// pub fn init_database() -> Result<postgres::Connection, Box<Error>> {
+//     println!("\n** init_database()\n");
+//     let dsn = get_config("dsn");
+//     Connection::connect(dsn, TlsMode::None)
+//     // let conn = match Connection::connect(dsn, TlsMode::None) {
+//     //     Ok(conn) => conn,
+//     //     Err(e) => {
+//     //         println!("! {:?}", e);
+//     //         return;
+//     //     }
+//     // };
+//     // conn
+// }
 
-    c.merge(File::new("Settings", FileFormat::Toml).required(false))
-        .unwrap();
-    let value = c.get_str(param).unwrap();
-    println!("{:?} = {:?}", param, value);
-    value
-}
+fn main() {
+    println!("\n** test things\n");
+    let name = String::from("Nowhere");
+    let city = City::new(name, Some(123), None, None);
+    debug_show(&city);
 
-/// Read data from the CSV files.
-pub fn read_csv() {
     println!("\n** read_csv()\n");
     let csv_path = get_config("csv_path_cities");
-    if let Err(err) = import::reader::read_csv_cities(&csv_path) {
+    if let Err(err) = read_csv_cities(&csv_path) {
         println!("error running example: {}", err);
-        std::process::exit(1);
+        exit(1);
     }
     if get_config("debug") == "true" {
         let csv_path = get_config("csv_path_properties");
-        if let Err(err) = import::reader::read_csv_properties(&csv_path) {
+        if let Err(err) = read_csv_properties(&csv_path) {
             println!("error running example: {}", err);
-            std::process::exit(1);
+            exit(1);
         }
     }
-}
 
-/// Read data from the Postgres database.
-pub fn read_database() {
-    println!("\n** read_database()\n");
+    println!("\n** init_database()\n");
     let dsn = get_config("dsn");
+    // let conn = init_database();
     let conn = match Connection::connect(dsn, TlsMode::None) {
         Ok(conn) => conn,
         Err(e) => {
@@ -80,21 +129,8 @@ pub fn read_database() {
             return;
         }
     };
-
-    let query = "SELECT name, population, latitude, longitude FROM cities LIMIT 5";
-    println!("db rows = ");
-    for row in &conn.query(query, &[]).unwrap() {
-        let city = City {
-            name: row.get(0),
-            population: row.get(1),
-            latitude: row.get(2),
-            longitude: row.get(3),
-        };
-        println!("{:?}", city);
-    }
-}
-
-fn main() {
-    read_csv();
-    read_database();
+    // let query = get_config("query_cities");
+    // read_database_cities(&conn, &query);
+    let query = get_config("query_properties");
+    read_database_properties(&conn, &query);
 }

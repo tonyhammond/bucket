@@ -22,7 +22,6 @@ For now have broken out the following structure:
 
 ```text
 src
-src
 ├── config.rs
 ├── datasets
 │   ├── city.rs

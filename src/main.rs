@@ -22,9 +22,12 @@ For now have broken out the following structure:
 
 ```text
 src
+src
 ├── config.rs
 ├── datasets
-│   └── mod.rs
+│   ├── city.rs
+│   ├── mod.rs
+│   └── property.rs
 ├── import
 │   ├── mod.rs
 │   └── reader.rs
@@ -77,7 +80,8 @@ pub mod import;
 pub mod utils;
 
 use self::config::*;
-use self::datasets::*;
+use self::datasets::city::City;
+// use self::datasets::property::Property;
 use self::import::reader::*;
 use self::utils::*;
 
@@ -101,19 +105,34 @@ use std::process::exit;
 
 fn main() {
     println!("\n** test things\n");
-    let name = String::from("Nowhere");
-    let city = City::new(name, Some(123), None, None);
+    // let mut city = City::new(...);
+    let mut city = City::default();
     debug_show(&city);
+    city.set_name("Somewhere");
+    debug_show(&city);
+
+    // let mut x = get_result(true);
+    // println!("{:?}", x);
+    match check_ok(true) {
+        Ok(s) => println!("Ok: {:?}", s),
+        Err(e) => println!("Err: {:#?}", e),
+    }
+    match check_ok(false) {
+        Ok(s) => println!("Ok: {:?}", s),
+        Err(e) => println!("Err: {:#?}", e),
+    }
 
     println!("\n** read_csv()\n");
     let csv_path = get_config("csv_path_cities");
-    if let Err(err) = read_csv_cities(&csv_path) {
+    let csv_type = "City";
+    if let Err(err) = read_csv(&csv_path, &csv_type) {
         println!("error running example: {}", err);
         exit(1);
     }
     if get_config("debug") == "true" {
         let csv_path = get_config("csv_path_properties");
-        if let Err(err) = read_csv_properties(&csv_path) {
+        let csv_type = "Property";
+        if let Err(err) = read_csv(&csv_path, &csv_type) {
             println!("error running example: {}", err);
             exit(1);
         }

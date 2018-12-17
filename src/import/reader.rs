@@ -2,10 +2,33 @@
 The `imports::reader` module is for reading external data sources.
 */
 
-use crate::datasets::*;
+use crate::datasets::city::*;
+use crate::datasets::property::*;
 use csv::Reader;
 use postgres::Connection;
 use std::error::Error;
+
+/// Read a CSV file for cities or propertiesw using the `csv_path` and `csv_type` params.
+///
+/// This function also deserializes the CSV records using a `City` struct or `Property` struct
+/// baased on the `csv_type` param and prints those out for test purposes.
+pub fn read_csv(csv_path: &str, csv_type: &str) -> Result<(), Box<Error>> {
+    let mut rdr = Reader::from_path(csv_path)?;
+    if csv_type == "City" {
+        for result in rdr.deserialize() {
+            let city: City = result?;
+            // let mut city: City = result?;
+            // city.set_name(&city.name);
+            println!("{:?}", &city);
+        }
+    } else if csv_type == "Property" {
+        for result in rdr.deserialize() {
+            let property: Property = result?;
+            println!("{:?}", &property);
+        }
+    }
+    Ok(())
+}
 
 /// Read a CSV file for cities using the `csv_path` param.
 ///
@@ -15,19 +38,19 @@ pub fn read_csv_cities(csv_path: &str) -> Result<(), Box<Error>> {
     println!("csv recs = ");
     let mut rdr = Reader::from_path(csv_path)?;
     for result in rdr.deserialize() {
-        let record: City = result?;
+        let city: City = result?;
         // println!("\n");
-        println!("{:?}", record);
-        println!("Lat/long = {:?}", record.lat_long());
-        // println!("name = {}", record.name);
-        // if record.population != None {
-        //     println!("population = {}", record.population.unwrap());
+        println!("{:?}", city);
+        println!("Lat/long = {:?}", city.lat_long());
+        // println!("name = {}", city.name);
+        // if city.population != None {
+        //     println!("population = {}", city.population.unwrap());
         // }
-        // if record.latitude != None {
-        //     println!("latitude = {}", record.latitude.unwrap());
+        // if city.latitude != None {
+        //     println!("latitude = {}", city.latitude.unwrap());
         // }
-        // if record.longitude != None {
-        //     println!("longitude = {}", record.longitude.unwrap());
+        // if city.longitude != None {
+        //     println!("longitude = {}", city.longitude.unwrap());
         // }
     }
     Ok(())
@@ -41,8 +64,8 @@ pub fn read_csv_properties(csv_path: &str) -> Result<(), Box<Error>> {
     println!("csv recs = ");
     let mut rdr = Reader::from_path(csv_path)?;
     for result in rdr.deserialize() {
-        let record: Property = result?;
-        println!("{:?}", record);
+        let property: Property = result?;
+        println!("{:?}", property);
     }
     Ok(())
 }

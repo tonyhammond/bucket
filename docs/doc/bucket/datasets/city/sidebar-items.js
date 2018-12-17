@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["City","A `City` struct for a CSV record."]]});

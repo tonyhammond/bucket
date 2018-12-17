@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["City","A `City` struct for a CSV record."],["Property","A `Property` struct for a CSV record."]]});
+initSidebarItems({"mod":[["city","The `city` module defines the `City` struct and implementation."],["property","The `property` module defines the `Property` struct and implementation."]]});

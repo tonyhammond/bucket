@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["debug_show","A trivial function using generics."]]});
+initSidebarItems({"fn":[["check_ok","A trial function to explore a `Result` type return."],["debug_show","A trivial function using generics."]]});

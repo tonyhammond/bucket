@@ -104,11 +104,17 @@ use std::process::exit;
 
 fn main() {
     println!("\n** test things\n");
-    // let mut city = City::new(...);
-    let mut city = City::default();
-    debug_show(&city);
-    city.set_name("Somewhere");
-    debug_show(&city);
+    // let property = Property::default();
+    // debug_show(&property);
+
+    let city_a = City::default();
+    debug_show(&city_a);
+    // let city_b = City::new("".to_string(), Some(0), Some(0.0), Some(0.0));
+    // debug_show(&city_b);
+    // assert_eq!(city_a, city_b);
+    // city.name = city.get_name().trim_right().to_string();
+    // // city.set_name(s);
+    // debug_show(&city);
 
     // let mut x = get_result(true);
     // println!("{:?}", x);
@@ -151,4 +157,5 @@ fn main() {
     // read_database_cities(&conn, &query);
     let query = get_config("query_properties");
     read_database_properties(&conn, &query);
+
 }

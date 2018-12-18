@@ -18,7 +18,7 @@ pub fn read_csv(csv_path: &str, csv_type: &str) -> Result<(), Box<Error>> {
         for result in rdr.deserialize() {
             let city: City = result?;
             // let mut city: City = result?;
-            // city.set_name(&city.name);
+            // city.name = city.get_name().trim_right().to_string();
             println!("{:?}", &city);
         }
     } else if csv_type == "Property" {

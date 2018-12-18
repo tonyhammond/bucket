@@ -6,6 +6,7 @@ The `city` module defines the `City` struct and implementation.
 
 /// A `City` struct for a CSV record.
 #[derive(Debug, Deserialize)]
+#[derive(PartialEq, PartialOrd)]
 pub struct City {
     // pub id: i32,
     // #[serde(default)]
@@ -18,21 +19,18 @@ pub struct City {
     pub longitude: Option<f64>,
 }
 
-// impl Default for City {
-//     fn default("Foo") -> City { City::name }
-//     fn default(None) -> City { City::population }
-// }
-
+// Implement the Default trait.
 impl Default for City {
-    fn default () -> City {
+    fn default() -> City {
         City {
-            name: "Nowhere".to_string(),
+            name: "".to_string(),
             population: Some(0),
             latitude: Some(0.0),
             longitude: Some(0.0),
         }
     }
 }
+
 // Methods
 impl City {
     /// Demo method `lat_long()` defined on `City` to return a lat/long tuple.
@@ -41,7 +39,7 @@ impl City {
     }
 
     /// Method to get the name field.
-    pub fn get_name(&mut self) -> &str {
+    pub fn get_name(&self) -> &str {
         &self.name
     }
     /// Method to set the name field.
@@ -65,5 +63,23 @@ impl City {
             latitude,
             longitude,
         }
+    }
+}
+
+// Tests.
+#[cfg(test)]
+mod tests {
+    use crate::datasets::city::City;
+
+    #[test]
+    fn test_city_default() {
+        let city_a = City::default();
+        let city_b = City::new(
+            "".to_string(),
+            Some(0),
+            Some(0.0),
+            Some(0.0),
+        );
+        assert_eq!(city_a, city_b);
     }
 }

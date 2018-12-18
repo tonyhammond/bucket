@@ -15,12 +15,13 @@ pub fn get_config(param: &str) -> String {
     value
 }
 
+// Tests.
 #[cfg(test)]
 mod tests {
     use crate::config::get_config;
 
     #[test]
-    fn test_config_works() {
+    fn test_get_config() {
         assert_eq!(get_config("config"), "true");
     }
 }
